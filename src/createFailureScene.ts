@@ -61,11 +61,11 @@ export default function createFailureScene(score: Score, ...messages: string[]):
       src: scene.asset.getImageById('Tweet'),
     }), () => {
       const time = score.time >= 60
-        ? `${Math.floor(score.time / 60)}分${score.time % 60}秒`
+        ? `${Math.floor(score.time / 60)}分${Math.round(score.time % 60)}秒`
         : `${score.time}秒`;
       const body = `私は${time}間でエナジードリンクを${score.count}本飲みました`;
-      const hashtag = 'WakeMeUpGame';
-      const url = 'https://game.gutchom.com/wake-me-up';
+      const hashtag = 'CaffeineBeater';
+      const url = 'https://games.gutchom.com/caffeine-beater';
       location.href = `https://twitter.com/intent/tweet?text=${encodeURIComponent(body)}&url=${url}&hashtags=${hashtag}`;
     });
     tweetButton.moveTo(640, 700);
