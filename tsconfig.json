@@ -1,35 +1,22 @@
 {
   "compilerOptions": {
-    "jsx": "react",
-    "target": "esnext",
-    "module": "esnext",
-    "moduleResolution": "node",
-    "lib": ["dom", "esnext"],
-    "allowSyntheticDefaultImports": true,
-    "experimentalDecorators": true,
-    "noImplicitAny": true,
-    "strictNullChecks": true,
-    "noUnusedLocals": true,
-    "removeComments": true,
-    "importHelpers": true,
-    "baseUrl": "./src/script",
-    "typeRoots" : [
-      "types",
-      "./node_modules/@types"
+    "target": "ES5",
+    "lib": [
+      "esnext",
+      "dom"
     ],
-    "paths": {
-      "*": ["*"],
-      "component": ["component"]
-    }
+    "noImplicitAny": true,
+    "module": "commonjs" ,
+    "outDir": "script",
+    "types" : [],
+    "allowUmdGlobalAccess": true,
+    "noImplicitUseStrict": true
   },
+  "files": [
+    "node_modules/@akashic/akashic-engine/index.runtime.d.ts"
+  ],
   "include": [
-    "./src/**/*"
-  ],
-  "exclude": [
-    "./node_modules"
-  ],
-  "compileOnSave": false,
-  "atom": {
-    "rewriteTsConfig": false
-  }
+    "src/**/*.ts",
+    "typings/console.d.ts"
+  ]
 }

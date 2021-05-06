@@ -1,70 +1,36 @@
 {
-  "parser": "@typescript-eslint/parser",
-  "parserOptions": {
-    "project": "./tsconfig.json",
-    "tsconfigRootDir": "./"
-  },
-  "settings": {
-    "react": {
-      "version": "detect"
-    },
-    "import/resolver": {
-      "node": {
-        "paths": ["src/script"],
-        "extensions": [
-          ".js",
-          ".jsx",
-          ".ts",
-          ".tsx"
-        ]
-      }
-    }
-  },
   "env": {
     "browser": true,
-    "node": true,
-    "es6": true,
-    "jest": true,
-    "jest/globals": true
+    "es6": true
   },
-  "extends": [
-    "plugin:@typescript-eslint/recommended",
-    "plugin:import/errors",
-    "plugin:import/typescript",
-    "plugin:import/warnings",
-    "plugin:react/recommended"
-  ],
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "project": "tsconfig.json",
+    "sourceType": "module"
+  },
   "plugins": [
-    "@typescript-eslint",
-    "import",
-    "react",
-    "jest",
-    "tsc"
+      "@typescript-eslint",
+      "import"
   ],
   "rules": {
-    "block-scoped-var": "error",
-    "@typescript-eslint/camelcase": "off",
     "@typescript-eslint/naming-convention": [
-      "error",
+        "error",
       {
         "selector": "default",
-        "format": ["camelCase", "PascalCase"]
+        "format": [ "camelCase" ],
+        "leadingUnderscore": "allow"
       },
       {
         "selector": "class",
-        "format": ["PascalCase"]
+        "format": [ "PascalCase" ]
       },
       {
-        "selector": "function",
-        "format": ["camelCase", "PascalCase"]
+        "selector": "interface",
+        "format": [ "PascalCase" ]
       },
       {
-        "selector": "parameter",
-        "format": null
-      },
-      {
-        "selector": "typeLike",
-        "format": ["PascalCase"]
+        "selector": "typeAlias",
+        "format": [ "PascalCase" ]
       },
       {
         "selector": "property",
@@ -77,33 +43,151 @@
         "trailingUnderscore": "allow"
       }
     ],
-    "@typescript-eslint/explicit-module-boundary-types": "off",
-    "tsc/config": [
-      1,
+    "@typescript-eslint/indent": [
+        "error",
+        "tab",
       {
-        "configFile": "./tsconfig.json"
+        "FunctionDeclaration": {
+          "parameters": "first"
+        },
+        "FunctionExpression": {
+          "parameters": "first"
+        },
+        "SwitchCase": 1,
+        "flatTernaryExpressions": true,
+        "ignoredNodes": [ "ConditionalExpression" ]
       }
     ],
-    "react/prop-types": "off",
-    "react/no-children-prop": "off",
-    "jest/no-disabled-tests": "warn",
-    "jest/no-focused-tests": "error",
-    "jest/no-identical-title": "error",
-    "jest/prefer-to-have-length": "warn",
-    "jest/valid-expect": "error",
-    "curly": ["error", "all"],
-    "sort-imports": ["error", { "ignoreDeclarationSort": true }],
-    "no-console": "warn",
-    "lines-between-class-members": "off",
-    "no-await-in-loop": "off",
-    "no-nested-ternary": "off",
-    "class-methods-use-this": "off",
-    "consistent-return": "off",
-    "semi": ["error", "never", {"beforeStatementContinuationChars": "never"}],
-    "semi-spacing": ["error", {"after": true, "before": false}],
-    "semi-style": ["error", "first"],
-    "no-extra-semi": "error",
-    "no-unexpected-multiline": "error",
-    "no-unreachable": "error"
+    "@typescript-eslint/interface-name-prefix": "off",
+    "@typescript-eslint/member-delimiter-style": [
+        "error",
+      {
+        "multiline": {
+          "delimiter": "semi",
+          "requireLast": true
+        },
+        "singleline": {
+          "delimiter": "semi",
+          "requireLast": false
+        },
+        "overrides": {
+          "interface": {
+            "singleline": {
+              "delimiter": "semi",
+              "requireLast": true
+            },
+            "multiline": {
+              "delimiter": "semi",
+              "requireLast": true
+            }
+          }
+        }
+      }
+    ],
+    "@typescript-eslint/member-ordering": [ "error",
+      {
+        "default": [
+            "public-static-field",
+            "public-instance-field",
+            "private-instance-field",
+            "public-static-method",
+            "public-constructor",
+            "public-instance-method",
+            "private-instance-method"
+        ]
+      }
+    ],
+    "@typescript-eslint/no-empty-function": "error",
+    "@typescript-eslint/no-parameter-properties": "error",
+    "@typescript-eslint/no-var-requires": "error",
+    "@typescript-eslint/quotes": [
+        "error",
+        "single"
+    ],
+    "@typescript-eslint/semi": [
+        "error"
+    ],
+    "@typescript-eslint/type-annotation-spacing": "error",
+    "@typescript-eslint/typedef": [ "error", {
+      "propertyDeclaration": true,
+      "memberVariableDeclaration": false,
+      "parameter": true,
+      "arrowParameter": false
+    } ],
+    "@typescript-eslint/explicit-function-return-type": [ "error", {
+      "allowExpressions": true,
+      "allowTypedFunctionExpressions": true
+    } ],
+    "@typescript-eslint/no-unused-vars": [ "error", {
+      "vars": "all",
+      "args": "none",
+      "argsIgnorePattern": "^_"
+    } ],
+    "camelcase": "off",
+    "curly": "off",
+    "dot-notation": "error",
+    "eol-last": "error",
+    "eqeqeq": [
+        "error",
+        "smart"
+    ],
+    "guard-for-in": "error",
+    "id-blacklist": "off",
+    "id-match": "off",
+    "max-len": [
+        "error",
+      {
+        "code": 140
+      }
+    ],
+    "no-bitwise": "off",
+    "no-caller": "error",
+    "no-console": [
+        "error",
+      {
+        "allow": [
+            "log",
+            "warn",
+            "dir",
+            "timeLog",
+            "assert",
+            "clear",
+            "count",
+            "countReset",
+            "group",
+            "groupEnd",
+            "table",
+            "dirxml",
+            "error",
+            "groupCollapsed",
+            "Console",
+            "profile",
+            "profileEnd",
+            "timeStamp",
+            "context"
+        ]
+      }
+    ],
+    "no-debugger": "error",
+    "no-empty": "error",
+    "no-eval": "error",
+    "no-fallthrough": "error",
+    "no-new-wrappers": "error",
+    "no-redeclare": "off",
+    "no-trailing-spaces": "error",
+    "comma-spacing": "error",
+    "brace-style": "error",
+    "no-underscore-dangle": "off",
+    "no-unused-expressions": "error",
+    "no-unused-labels": "error",
+    "radix": "error",
+    "spaced-comment": [ "error", "always", { "markers": [ "/" ] } ],
+    "keyword-spacing": [ "error" ],
+    "import/order": [ "error", {
+      "alphabetize": {
+        "order": "asc",
+        "caseInsensitive": true
+      }
+    } ]
   }
 }
