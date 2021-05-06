@@ -45,7 +45,7 @@
     ],
     "@typescript-eslint/indent": [
         "error",
-        "tab",
+        2,
       {
         "FunctionDeclaration": {
           "parameters": "first"

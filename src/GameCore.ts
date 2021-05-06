@@ -1,12 +1,12 @@
-import { AudioAsset } from '@akashic/akashic-engine'
-import createButton from './createButton'
-import createGameScene from './createGameScene'
-import createFailureScene from './createFailureScene'
-import { intersectArea, limit } from './utils'
-import Gauge from './Gauge'
-import Background from './Background'
-import Monster from './Monster'
-import Player from './Player'
+import { AudioAsset } from '@akashic/akashic-engine';
+import Background from './Background';
+import createButton from './createButton';
+import createFailureScene from './createFailureScene';
+import createGameScene from './createGameScene';
+import Gauge from './Gauge';
+import Monster from './Monster';
+import Player from './Player';
+import { intersectArea, limit } from './utils';
 
 const MESSAGE = [
   ['カフェイン中毒で倒れた！'],
@@ -67,7 +67,7 @@ export default class GameCore {
   }
 
   set caffeine(quantity: number) {
-    const diff = this.awake - this.caffeine
+    const diff = this.awake - this.caffeine;
     if (diff <= 300) {
       this.caffeineGauge.changeColor(60 * diff / 300, 100, 50);
     } else {
@@ -92,12 +92,12 @@ export default class GameCore {
     this.awakeGauge = new Gauge(scene, this.hudLayer, this.font, 40, 'AWAKE');
     this.caffeineGauge = new Gauge(scene, this.hudLayer, this.font, 86, 'CAFFEINE');
 
-    this.se = scene.asset.getAudioById("se");
+    this.se = scene.asset.getAudioById('se');
 
     this.handleStart();
   }
 
-  handleStart() {
+  handleStart(): void {
     const title = new g.Sprite({
       scene: this.scene,
       parent: this.rootLayer,
@@ -116,11 +116,11 @@ export default class GameCore {
         this.scene.onUpdate.add(this.handleGame, this);
       }
 
-      this.awake += 5
+      this.awake += 5;
     }, this);
   }
 
-  handleGame() {
+  handleGame(): void {
     this.background.shiftParallax(this.player.x / g.game.width);
     if (g.game.age % (10 - this.stage * 2) === 0) {
       const monster = new Monster(this.scene, this.gameLayer);
@@ -152,11 +152,11 @@ export default class GameCore {
     this.caffeine -= 3;
   }
 
-  handleFailure(messages: string[]) {
+  handleFailure(messages: string[]): void {
     g.game.replaceScene(createFailureScene(this.result, ...messages));
   }
 
-  handleProceed() {
+  handleProceed(): void {
     const font = this.font;
     const scene = this.scene;
     const message = ['', '起床成功！', '出勤成功！', ''];
@@ -198,7 +198,9 @@ export default class GameCore {
     const nextButton = createButton(scene, new g.Sprite({
       scene,
       src: scene.asset.getImageById('Next'),
-    }), () => {g.game.replaceScene(createGameScene(this.stage + 1, this.result))});
+    }), () => {
+      g.game.replaceScene(createGameScene(this.stage + 1, this.result));
+    });
     nextButton.moveTo(360, 640);
     scene.append(nextButton);
   }

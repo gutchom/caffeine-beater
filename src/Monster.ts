@@ -1,10 +1,10 @@
-import { STAGE_HEIGHT } from './globals'
+import { STAGE_HEIGHT } from './globals';
 
 export default class Monster extends g.Sprite {
   gravity = 1;
   stageHeight: number = STAGE_HEIGHT;
 
-  constructor(scene: g.Scene, parent: g.E, gravity = 1) {
+  constructor(scene: g.Scene, parent: g.E, gravity: number = 1) {
     super({
       scene,
       parent,
@@ -16,7 +16,7 @@ export default class Monster extends g.Sprite {
     this.onUpdate.add(this.fall, this);
   }
 
-  fall() {
+  fall(): void {
     const dt = 1 / g.game.fps;
     this.y += dt*180 + this.y * dt*1.8 * this.gravity;
     if (this.y >= this.stageHeight) {

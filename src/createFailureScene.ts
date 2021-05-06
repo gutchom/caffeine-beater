@@ -1,6 +1,6 @@
-import { Score } from './GameCore'
-import createTitleScene from './createTitleScene'
-import createButton from './createButton'
+import createButton from './createButton';
+import createTitleScene from './createTitleScene';
+import { Score } from './GameCore';
 
 export default function createFailureScene(score: Score, ...messages: string[]): g.Scene {
   const scene = new g.Scene({
@@ -74,7 +74,9 @@ export default function createFailureScene(score: Score, ...messages: string[]):
     const retryButton = createButton(scene, new g.Sprite({
       scene,
       src: scene.asset.getImageById('Retry'),
-    }), () => {g.game.replaceScene(createTitleScene())});
+    }), () => {
+      g.game.replaceScene(createTitleScene());
+    });
     retryButton.moveTo(120, 700);
     scene.append(retryButton);
   });

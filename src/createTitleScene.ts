@@ -1,4 +1,4 @@
-import createGameScene from './createGameScene'
+import createGameScene from './createGameScene';
 
 export default function createTitleScene(): g.Scene {
   const scene = new g.Scene({
@@ -54,7 +54,7 @@ export default function createTitleScene(): g.Scene {
 
     scene.onPointDownCapture.add(() => {
       g.game.replaceScene(createGameScene(1, { time: 0, count: 0 }));
-    })
+    });
   });
 
   return scene;

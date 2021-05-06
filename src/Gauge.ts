@@ -36,7 +36,7 @@ export default class Gauge extends g.E {
     });
   }
 
-  changeColor(h: number, s: number, l: number, a = 100) {
+  changeColor(h: number, s: number, l: number, a: number = 100): void {
     this.bar.cssColor = `hsla(${h}, ${s}%, ${l}%, ${a}%)`;
     this.bar.modified();
   }

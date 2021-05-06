@@ -1,4 +1,4 @@
-import { STAGE_HEIGHT } from './globals'
+import { STAGE_HEIGHT } from './globals';
 
 export default class Player extends g.E {
   left: g.Sprite;
@@ -28,14 +28,18 @@ export default class Player extends g.E {
     });
   }
 
-  move(x: number) {
+  move(x: number): void {
     const next = x - this.width / 2;
     if (this.x < next) {
-      this.children.forEach((e) => {e.hide()});
+      this.children.forEach((e) => {
+        e.hide();
+      });
       this.right.show();
     }
     if (this.x > next) {
-      this.children.forEach((e) => {e.hide()});
+      this.children.forEach((e) => {
+        e.hide();
+      });
       this.left.show();
     }
     this.x = next;

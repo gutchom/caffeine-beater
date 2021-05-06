@@ -16,7 +16,7 @@ export default class Background extends g.Sprite {
    * @param x 0から1で横方向の視差を指定する
    * @param y 0から1で縦方向の視差を指定する
    */
-  shiftParallax(x = 0.5, y = 0) {
+  shiftParallax(x: number = 0.5, y: number = 0): void {
     this.x = (g.game.width - this.width) * x;
     this.y = (g.game.height - this.height) * y;
     this.modified();

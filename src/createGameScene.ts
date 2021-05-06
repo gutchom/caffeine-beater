@@ -1,4 +1,4 @@
-import GameCore, { Score } from './GameCore'
+import GameCore, { Score } from './GameCore';
 
 export default function createGameScene(stage: number, score: Score): g.Scene {
   const scene = new g.Scene({

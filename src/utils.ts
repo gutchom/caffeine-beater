@@ -1,6 +1,6 @@
-import { CommonArea, CommonOffset } from '@akashic/akashic-engine'
+import { CommonArea, CommonOffset } from '@akashic/akashic-engine';
 
-export function limit(num: number, min: number, max: number) {
+export function limit(num: number, min: number, max: number): number {
   return Math.min(max, Math.max(min, num));
 }
 
