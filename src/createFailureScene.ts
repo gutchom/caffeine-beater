@@ -66,7 +66,10 @@ export default function createFailureScene(score: Score, ...messages: string[]):
       const body = `私は${time}間でエナジードリンクを${score.count}本飲みました`;
       const hashtag = 'CaffeineBeater';
       const url = 'https://games.gutchom.com/caffeine-beater';
-      parent.location.href = `https://twitter.com/intent/tweet?text=${encodeURIComponent(body)}&url=${url}&hashtags=${hashtag}`;
+      const tweetUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(body)}&url=${url}&hashtags=${hashtag}`;
+      const source = 'caffeine-beater-tweet-button';
+      console.log({ source, tweetUrl });
+      parent.postMessage({ source, tweetUrl }, parent.location.origin);
     });
     tweetButton.moveTo(640, 700);
     scene.append(tweetButton);
