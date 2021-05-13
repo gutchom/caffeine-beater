@@ -11,3 +11,5 @@ export function intersectArea(a: CommonArea, b: CommonArea): boolean {
 export function intersect(point: CommonOffset, area: CommonArea): boolean {
   return point.x >= area.x && point.x <= area.x + area.width && point.y >= area.y && point.y <= area.y + area.height;
 }
+
+export const getRootWindow = (w: Window): Window => w === w.parent ? w : getRootWindow(w.parent);

@@ -1,6 +1,7 @@
 import createButton from './createButton';
 import createTitleScene from './createTitleScene';
 import { Score } from './GameCore';
+import { getRootWindow } from './utils';
 
 export default function createFailureScene(score: Score, ...messages: string[]): g.Scene {
   const scene = new g.Scene({
@@ -63,13 +64,11 @@ export default function createFailureScene(score: Score, ...messages: string[]):
       const time = score.time >= 60
         ? `${Math.floor(score.time / 60)}分${Math.round(score.time % 60)}秒`
         : `${score.time}秒`;
-      const body = `私は${time}間でエナジードリンクを${score.count}本飲みました`;
-      const hashtag = 'CaffeineBeater';
-      const url = 'https://games.gutchom.com/caffeine-beater';
-      const tweetUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(body)}&url=${url}&hashtags=${hashtag}`;
-      const source = 'caffeine-beater-tweet-button';
-      console.log({ source, tweetUrl });
-      parent.postMessage({ source, tweetUrl }, parent.location.origin);
+      const url = new URL('https://twitter.com/intent/tweet');
+      url.searchParams.append('text', `私は${time}間でエナジードリンクを${score.count}本飲みました`);
+      url.searchParams.append('hashtag', 'CaffeineBeater');
+      url.searchParams.append('url', 'https://games.gutchom.com/caffeine-beater');
+      getRootWindow(window).location.assign(url.href);
     });
     tweetButton.moveTo(640, 700);
     scene.append(tweetButton);
