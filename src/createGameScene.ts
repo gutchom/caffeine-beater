@@ -1,6 +1,6 @@
-import GameCore, { Score } from './GameCore';
+import GameCore from './GameCore';
 
-export default function createGameScene(stage: number, score: Score): g.Scene {
+export default function createGameScene(stage: number, count: number, time: number): g.Scene {
   const scene = new g.Scene({
     game: g.game,
     assetIds: [
@@ -29,7 +29,7 @@ export default function createGameScene(stage: number, score: Score): g.Scene {
       src: scene.asset.getImageById('font12'),
       glyphInfo: JSON.parse(scene.asset.getTextById('font12_glyphs').data),
     });
-    const game = new GameCore(scene, font, stage, score);
+    const game = new GameCore(scene, font, stage, count, time);
 
     scene.onPointDownCapture.add((e) => {
       game.player.move(e.point.x);

@@ -15,11 +15,6 @@ const MESSAGE = [
   ['眠すぎる……', '会社を早退した'],
 ];
 
-export interface Score {
-  time: number;
-  count: number;
-}
-
 export default class GameCore {
   font: g.BitmapFont;
   scene: g.Scene;
@@ -38,19 +33,14 @@ export default class GameCore {
   awakeGauge: Gauge;
   caffeineGauge: Gauge;
 
-  score: Score;
-  startAge = 0;
-  count = 0;
+  time: number;
+  count: number;
 
   get isLastStage(): boolean {
     return this.stage === 4;
   }
-
-  get result(): Score {
-    this.score.count += this.count;
-    this.score.time += (g.game.age - this.startAge) / g.game.fps;
-    this.score.time = Math.round(this.score.time * 10) / 10;
-    return this.score;
+  get localedTime(): string {
+    return `${Math.floor(this.time / 60)}分${Math.round(this.time % 60)}秒`;
   }
 
   get awake(): number {
@@ -76,11 +66,12 @@ export default class GameCore {
     this.caffeineGauge.rate = limit(quantity, 0, 1000);
   }
 
-  constructor(scene: g.Scene, font: g.BitmapFont, stage: number, score: Score) {
+  constructor(scene: g.Scene, font: g.BitmapFont, stage: number, count: number, time: number) {
     this.font = font;
     this.scene = scene;
     this.stage = stage;
-    this.score = score;
+    this.count = count;
+    this.time = time;
 
     scene.append(this.rootLayer = new g.E({ scene }));
     this.backgroundLayer = new g.E({ scene, parent: this.rootLayer });
@@ -111,7 +102,6 @@ export default class GameCore {
     this.scene.onUpdate.add(() => {
       if (this.awake >= (this.isLastStage ? 1000 : 500)) {
         title.destroy();
-        this.startAge = g.game.age;
         this.scene.onUpdate.removeAll();
         this.scene.onUpdate.add(this.handleGame, this);
       }
@@ -121,6 +111,7 @@ export default class GameCore {
   }
 
   handleGame(): void {
+    this.time += 1 / g.game.fps;
     this.background.shiftParallax(this.player.x / g.game.width);
     if (g.game.age % (10 - this.stage * 2) === 0) {
       const monster = new Monster(this.scene, this.gameLayer);
@@ -153,7 +144,7 @@ export default class GameCore {
   }
 
   handleFailure(messages: string[]): void {
-    g.game.replaceScene(createFailureScene(this.result, ...messages));
+    g.game.replaceScene(createFailureScene(this.count, this.localedTime, ...messages));
   }
 
   handleProceed(): void {
@@ -180,7 +171,7 @@ export default class GameCore {
     scene.append(new g.Label({
       scene,
       font,
-      text: `プレイ時間: ${this.result.time}秒`,
+      text: `プレイ時間: ${this.localedTime}`,
       textColor: 'white',
       fontSize: 48,
       x: 320,
@@ -189,7 +180,7 @@ export default class GameCore {
     scene.append(new g.Label({
       scene,
       font,
-      text: `飲んだ本数: ${this.result.count}本`,
+      text: `飲んだ本数: ${this.count}本`,
       textColor: 'white',
       fontSize: 48,
       x: 320,
@@ -199,7 +190,7 @@ export default class GameCore {
       scene,
       src: scene.asset.getImageById('Next'),
     }), () => {
-      g.game.replaceScene(createGameScene(this.stage + 1, this.result));
+      g.game.replaceScene(createGameScene(this.stage + 1, this.count, this.time));
     });
     nextButton.moveTo(360, 640);
     scene.append(nextButton);
