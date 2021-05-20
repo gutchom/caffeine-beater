@@ -122,8 +122,8 @@
 		},
 		"Stage4": {
 			"type": "image",
-			"width": 407,
-			"height": 80,
+			"width": 289,
+			"height": 74,
 			"path": "image/Stage4.png"
 		},
 		"Background": {
