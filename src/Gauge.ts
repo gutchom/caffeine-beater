@@ -1,4 +1,5 @@
 const LABEL_OFFSET = 240;
+const MAX_WIDTH = g.game.width - (LABEL_OFFSET + 40);
 
 export default class Gauge extends g.E {
   private quantity = 0; // 0から1000で表す
@@ -6,11 +7,11 @@ export default class Gauge extends g.E {
 
   constructor(scene: g.Scene, parent: g.E, font: g.BitmapFont, y: number, name: string) {
     super({ scene, parent });
-    this.bar = new g.FilledRect({
+    new g.FilledRect({
       scene,
       parent: this,
       cssColor: 'white',
-      width: this.maxWidth,
+      width: MAX_WIDTH,
       height: 40,
       x: LABEL_OFFSET,
       y,
@@ -41,17 +42,13 @@ export default class Gauge extends g.E {
     this.bar.modified();
   }
 
-  get maxWidth(): number {
-    return g.game.width - (LABEL_OFFSET + 40);
-  }
-
   get rate(): number {
     return this.quantity;
   }
 
   set rate(n: number) {
     this.quantity = Math.floor(n);
-    this.bar.width = this.maxWidth * this.quantity / 1000;
+    this.bar.width = MAX_WIDTH * this.quantity / 1000;
     this.modified();
   }
 }

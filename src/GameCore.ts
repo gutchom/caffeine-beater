@@ -8,6 +8,7 @@ import Monster from './Monster';
 import Player from './Player';
 import { intersectArea, limit } from './utils';
 
+const LAST_STAGE = 4;
 const MESSAGE = [
   ['カフェイン中毒で倒れた！'],
   ['起床失敗！', '二度寝してしまった……'],
@@ -36,9 +37,6 @@ export default class GameCore {
   time: number;
   count: number;
 
-  get isLastStage(): boolean {
-    return this.stage === 4;
-  }
   get localedTime(): string {
     return `${Math.floor(this.time / 60)}分${Math.round(this.time % 60)}秒`;
   }
@@ -48,7 +46,6 @@ export default class GameCore {
   }
 
   set awake(quantity: number) {
-    this.awakeGauge.changeColor(120, 100, 20 + 60 * quantity / 1000);
     this.awakeGauge.rate = limit(quantity, 0, 1000);
   }
 
@@ -60,8 +57,6 @@ export default class GameCore {
     const diff = this.awake - this.caffeine;
     if (diff <= 300) {
       this.caffeineGauge.changeColor(60 * diff / 300, 100, 50);
-    } else {
-      this.caffeineGauge.changeColor(60, 100, 50);
     }
     this.caffeineGauge.rate = limit(quantity, 0, 1000);
   }
@@ -81,7 +76,9 @@ export default class GameCore {
     this.background = new Background(scene, this.backgroundLayer, `bg0${stage}`);
     this.player = new Player(scene, this.gameLayer);
     this.awakeGauge = new Gauge(scene, this.hudLayer, this.font, 40, 'AWAKE');
+    this.awakeGauge.changeColor(120, 100, 20 + 30);
     this.caffeineGauge = new Gauge(scene, this.hudLayer, this.font, 86, 'CAFFEINE');
+    this.caffeineGauge.changeColor(60, 100, 50);
 
     this.se = scene.asset.getAudioById('se');
 
@@ -100,7 +97,7 @@ export default class GameCore {
     });
 
     this.scene.onUpdate.add(() => {
-      if (this.awake >= (this.isLastStage ? 1000 : 500)) {
+      if (this.awake >= (this.stage === LAST_STAGE ? 1000 : 500)) {
         title.destroy();
         this.scene.onUpdate.removeAll();
         this.scene.onUpdate.add(this.handleGame, this);
@@ -125,7 +122,7 @@ export default class GameCore {
         }
       }, this);
     }
-    if (!this.isLastStage && this.awake >= 1000) {
+    if (this.stage !== LAST_STAGE && this.awake >= 1000) {
       this.handleProceed();
       return;
     }
@@ -137,7 +134,7 @@ export default class GameCore {
       this.handleFailure(MESSAGE[this.stage]);
       return;
     }
-    if (!this.isLastStage) {
+    if (this.stage !== LAST_STAGE) {
       this.awake -= 0.5;
     }
     this.caffeine -= 3;

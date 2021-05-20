@@ -6,21 +6,12 @@ export default function createTitleScene(): g.Scene {
     assetIds: [
       'title',
       'title_bg',
-      'monster',
     ],
   });
 
   scene.onLoad.add(() => {
-    const bgLayer = new g.E({ scene });
-    const mainLayer = new g.E({ scene });
-    const hudLayer = new g.E({ scene });
-    scene.append(bgLayer);
-    scene.append(mainLayer);
-    scene.append(hudLayer);
-
     const title = new g.Sprite({
       scene,
-      parent: hudLayer,
       src: scene.asset.getImageById('title'),
       anchorX: 0.5,
       x: g.game.width / 2,
@@ -30,11 +21,13 @@ export default function createTitleScene(): g.Scene {
 
     const background = new g.Sprite({
       scene,
-      parent: bgLayer,
       src: scene.asset.getImageById('title_bg'),
       x: 0,
       y: 0,
     });
+
+    scene.append(background);
+    scene.append(title);
 
     scene.onUpdate.add(() => {
       /* 背景のスクロール */
