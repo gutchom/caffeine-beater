@@ -38,7 +38,8 @@ export default class GameCore {
   count: number;
 
   get localedTime(): string {
-    return `${Math.floor(this.time / 60)}分${Math.round(this.time % 60)}秒`;
+    const minute = Math.floor(this.time / 60);
+    return (minute === 0 ? '' : `${minute}分`) + `${Math.round(this.time % 60)}秒`;
   }
 
   get awake(): number {
