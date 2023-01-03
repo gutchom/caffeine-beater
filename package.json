@@ -5,6 +5,10 @@
   "description": "",
   "author": "gutchom",
   "license": "MIT",
+  "engines": {
+    "node": "18.2.0",
+    "npm": "8.9.0"
+  },
   "scripts": {
     "prebuild": "run-s font update",
     "build": "rimraf ./script && tsc && akashic-cli-scan asset script",
