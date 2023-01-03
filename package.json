@@ -5,6 +5,10 @@
   "description": "",
   "author": "gutchom",
   "license": "MIT",
+  "engines": {
+    "node": "18.2.0",
+    "npm": "8.9.0"
+  },
   "scripts": {
     "prebuild": "run-s font update",
     "build": "rimraf ./script && tsc && akashic-cli-scan asset script",
@@ -16,7 +20,7 @@
     "prestart": "npm run count",
     "start": "npm-watch sandbox",
     "preexport": "npm run build",
-    "export": "rimraf ../../public/caffeine-beater/game && akashic-cli-export-html --magnify --bundle --minify -o ../../public/caffeine-beater/game",
+    "export": "rimraf ./game && akashic-cli-export-html --magnify --bundle --minify -o ./game",
     "test": "jest",
     "font": "bmpfont-generator font/PixelMplus/PixelMplus12-Regular.ttf ./image/font12.png -f ./text/font.txt --json ./text/font12_glyphs.json --no-anti-alias",
     "count": "printf '\\e[36m\n  This project has\\e[35m %s lines\\e[36m of source code!\n\n\\e[m' $(find ./src -name '*.html' -o -name '*.css' -o -name '*.js*' -o -name '*.ts*' -o -name '*.json' | xargs wc -l | tail -1 | awk '{print $1}')"
@@ -46,25 +50,25 @@
     }
   },
   "devDependencies": {
-    "@akashic/akashic-cli": "^2.9.1",
+    "@akashic/akashic-cli": "^2.16.5",
     "@akashic/akashic-cli-export-html": "1.4.3",
     "@akashic/akashic-cli-export-zip": "0.9.1",
-    "@akashic/akashic-cli-scan": "0.10.0",
-    "@akashic/akashic-engine": "~3.0.4",
-    "@akashic/akashic-sandbox": "~0.17.21",
+    "@akashic/akashic-cli-scan": "0.16.2",
+    "@akashic/akashic-engine": "~3.9.1",
+    "@akashic/akashic-sandbox": "~0.21.0",
     "@akashic/bmpfont-generator": "^4.0.5",
-    "@akashic/headless-akashic": "^1.1.1",
-    "@types/jest": "26.0.20",
-    "@types/node": "14.14.34",
-    "@typescript-eslint/eslint-plugin": "3.10.1",
-    "@typescript-eslint/parser": "3.10.1",
-    "eslint": "7.22.0",
-    "eslint-plugin-import": "2.22.1",
-    "jest": "26.6.3",
+    "@akashic/headless-akashic": "^3.1.0",
+    "@types/jest": "29.2.5",
+    "@types/node": "18.11.18",
+    "@typescript-eslint/eslint-plugin": "5.48.0",
+    "@typescript-eslint/parser": "5.48.0",
+    "eslint": "8.31.0",
+    "eslint-plugin-import": "2.26.0",
+    "jest": "29.3.1",
     "npm-run-all": "^4.1.5",
-    "npm-watch": "^0.9.0",
+    "npm-watch": "^0.11.0",
     "rimraf": "3.0.2",
-    "ts-jest": "26.5.3",
-    "typescript": "3.9.9"
+    "ts-jest": "29.0.3",
+    "typescript": "4.9.4"
   }
 }
