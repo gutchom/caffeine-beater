@@ -16,7 +16,7 @@
     "prestart": "npm run count",
     "start": "npm-watch sandbox",
     "preexport": "npm run build",
-    "export": "rimraf ../../public/caffeine-beater/game && akashic-cli-export-html --magnify --bundle --minify -o ../../public/caffeine-beater/game",
+    "export": "rimraf ./docs && akashic-cli-export-html --magnify --bundle --minify -o ./docs",
     "test": "jest",
     "font": "bmpfont-generator font/PixelMplus/PixelMplus12-Regular.ttf ./image/font12.png -f ./text/font.txt --json ./text/font12_glyphs.json --no-anti-alias",
     "count": "printf '\\e[36m\n  This project has\\e[35m %s lines\\e[36m of source code!\n\n\\e[m' $(find ./src -name '*.html' -o -name '*.css' -o -name '*.js*' -o -name '*.ts*' -o -name '*.json' | xargs wc -l | tail -1 | awk '{print $1}')"
